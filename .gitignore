@@ -1,6 +1,9 @@
 __pycache__/
+.swp
+.zshrc
+.DS_Store
 .ipynb_checkpoints/
 checkpoints/
 logs/
 env/
-
+ml-32m/
