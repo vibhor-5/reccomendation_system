@@ -2,9 +2,14 @@ from custom_dataset import sample_loader
 from ncfmodel import ncf_pipeline
 import pandas as pd
 import numpy as np
-
+import polars as pl
 data_dir='ml-32m/ratings.csv'
-ratings=pd.read_csv(data_dir,engine='python',nrows=100000)
+# chunksize = 10**3  # Adjust based on memory limits  
+# chunks = pd.read_csv(data_dir, chunksize=chunksize,engine='python')
+# ratings = pd.concat(chunks, ignore_index=True)
+ratings=pl.read_csv(data_dir)
+print(ratings.dtypes)
+ratings=ratings.to_pandas()
 ratings['userId']=ratings['userId'].astype('category').cat.codes.values
 ratings['movieId']=ratings['movieId'].astype('category').cat.codes.values
 num_user=ratings["userId"].nunique()
